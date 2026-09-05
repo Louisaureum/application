@@ -15,6 +15,20 @@ flask --app server.app:create_app db upgrade
 python seed.py
 ```
 
+### Windows without Pipenv
+
+If `pipenv` is not installed, use the installed Python 3.12 interpreter instead of the system Python 3.14 interpreter:
+
+```powershell
+cd C:\Users\kaure\App
+& "C:\Users\kaure\AppData\Local\Programs\Python\Python312\python.exe" -m venv .venv
+& ".\.venv\Scripts\python.exe" -m pip install -r requirements.txt
+& ".\.venv\Scripts\python.exe" seed.py
+& ".\.venv\Scripts\python.exe" server\app.py
+```
+
+If Python 3.12 is installed in a different location, replace the first path with the output of `py -3.12 -c "import sys; print(sys.executable)"`.
+
 If you are running the system Python instead of Pipenv, update SQLAlchemy before starting the app:
 
 ```bash
