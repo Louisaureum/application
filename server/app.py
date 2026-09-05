@@ -5,8 +5,12 @@ from flask_migrate import Migrate
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
 
-from .models import Exercise, Workout, WorkoutExercise, db
-from .schemas import ExerciseSchema, WorkoutExerciseSchema, WorkoutSchema
+try:
+    from .models import Exercise, Workout, WorkoutExercise, db
+    from .schemas import ExerciseSchema, WorkoutExerciseSchema, WorkoutSchema
+except ImportError:
+    from models import Exercise, Workout, WorkoutExercise, db
+    from schemas import ExerciseSchema, WorkoutExerciseSchema, WorkoutSchema
 
 
 migrate = Migrate()
