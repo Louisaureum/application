@@ -4,48 +4,35 @@ A Flask REST API for trainers to manage reusable exercises, workouts, and the ex
 
 ## Installation
 
-This project uses Python 3.8+ and Pipenv. Python 3.14 requires SQLAlchemy 2.0.42 or newer; the Pipfile includes that compatibility constraint.
-
-```bash
-pipenv install --dev
-pipenv shell
-flask --app server.app:create_app db init
-flask --app server.app:create_app db migrate -m "create workout tables"
-flask --app server.app:create_app db upgrade
-python seed.py
-```
-
-### Windows without Pipenv
-
-If `pipenv` is not installed, use the installed Python 3.12 interpreter instead of the system Python 3.14 interpreter:
+This project uses Python 3.12. Python 3.14 is not supported by the lab's pinned Flask stack.
 
 ```powershell
 cd C:\Users\kaure\App
 & "C:\Users\kaure\AppData\Local\Programs\Python\Python312\python.exe" -m venv .venv
 & ".\.venv\Scripts\python.exe" -m pip install -r requirements.txt
+& ".\.venv\Scripts\python.exe" -m flask --app server.app:create_app db upgrade
 & ".\.venv\Scripts\python.exe" seed.py
-& ".\.venv\Scripts\python.exe" server\app.py
 ```
 
-If Python 3.12 is installed in a different location, replace the first path with the output of `py -3.12 -c "import sys; print(sys.executable)"`.
+The migration command is only needed the first time. Run `seed.py` again whenever you want to reset the sample data.
 
-If you are running the system Python instead of Pipenv, update SQLAlchemy before starting the app:
+### Optional Pipenv setup
 
-```bash
-python -m pip install --upgrade "SQLAlchemy>=2.0.42"
+If Pipenv is installed, you can use the Pipfile instead:
+
+```powershell
+pipenv install --dev
+pipenv run flask --app server.app:create_app db upgrade
+pipenv run python seed.py
 ```
-
-The migration commands are only needed the first time. Run `python seed.py` again whenever you want to reset the sample data.
 
 ## Run
 
-```bash
-pipenv run flask --app server.app:create_app run --debug
-# Or, from the server directory:
-pipenv run python app.py
+```powershell
+& ".\.venv\Scripts\python.exe" server\app.py
 ```
 
-The API is available at `http://127.0.0.1:5000`.
+The API is available at `http://127.0.0.1:5555`.
 
 ## Endpoints
 
@@ -86,6 +73,6 @@ Example request bodies:
 
 ## Tests
 
-```bash
-pipenv run pytest
+```powershell
+& ".\.venv\Scripts\python.exe" -m pytest
 ```

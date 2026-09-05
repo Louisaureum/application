@@ -27,7 +27,6 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SQLALCHEMY_DATABASE_URI=f"sqlite:///{default_database}",
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        JSON_SORT_KEYS=False,
     )
     if test_config:
         app.config.update(test_config)
