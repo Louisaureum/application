@@ -4,7 +4,7 @@ A Flask REST API for trainers to manage reusable exercises, workouts, and the ex
 
 ## Installation
 
-This project uses Python 3.8+ and Pipenv.
+This project uses Python 3.8+ and Pipenv. Python 3.14 requires SQLAlchemy 2.0.42 or newer; the Pipfile includes that compatibility constraint.
 
 ```bash
 pipenv install --dev
@@ -15,12 +15,20 @@ flask --app server.app:create_app db upgrade
 python seed.py
 ```
 
+If you are running the system Python instead of Pipenv, update SQLAlchemy before starting the app:
+
+```bash
+python -m pip install --upgrade "SQLAlchemy>=2.0.42"
+```
+
 The migration commands are only needed the first time. Run `python seed.py` again whenever you want to reset the sample data.
 
 ## Run
 
 ```bash
 pipenv run flask --app server.app:create_app run --debug
+# Or, from the server directory:
+pipenv run python app.py
 ```
 
 The API is available at `http://127.0.0.1:5000`.
